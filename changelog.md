@@ -16,3 +16,6 @@
 - Integration for Cloth Gamerules screen.
 ### 1.2.1
 - Fix Mixin searching for ClotGamerules classes when not installed.
+### 1.2.2
+- Updated for MC1.20.5.
+- In 1.20.5, the position of the buttons in the option menu has changed slightly.

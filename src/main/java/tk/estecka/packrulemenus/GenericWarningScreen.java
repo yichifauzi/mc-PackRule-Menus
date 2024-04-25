@@ -4,6 +4,8 @@ import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.WarningScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.DirectionalLayoutWidget;
+import net.minecraft.client.gui.widget.LayoutWidget;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 
@@ -37,11 +39,13 @@ extends WarningScreen
 	}
 
 	@Override
-	protected void	initButtons(int yOffset){
-		this.proceedButton = ButtonWidget.builder(ScreenTexts.PROCEED, this::OnAccept).dimensions(this.width / 2 - 155      , 100 + yOffset, 150, 20).build();
-		this.cancelButton  = ButtonWidget.builder(ScreenTexts.CANCEL,  this::OnCancel).dimensions(this.width / 2 - 155 + 160, 100 + yOffset, 150, 20).build();
-		this.addDrawableChild(proceedButton);
-		this.addDrawableChild(cancelButton);
+	protected LayoutWidget getLayout(){
+		DirectionalLayoutWidget layout = DirectionalLayoutWidget.horizontal().spacing(8);
+		this.proceedButton = ButtonWidget.builder(ScreenTexts.PROCEED, this::OnAccept).build();
+		this.cancelButton  = ButtonWidget.builder(ScreenTexts.CANCEL,  this::OnCancel).build();
+		layout.add(proceedButton);
+		layout.add(cancelButton);
+		return layout;
 	}
 
 	@Override

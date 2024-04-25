@@ -7,7 +7,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.llamalad7.mixinextras.sugar.Local;
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
@@ -42,7 +41,7 @@ extends Screen
 
 	private IntegratedServer server;
 
-	@Inject( method="init", at=@At(value="INVOKE", ordinal=1, shift=Shift.AFTER, target="net/minecraft/client/gui/widget/GridWidget$Adder.add (Lnet/minecraft/client/gui/widget/Widget;)Lnet/minecraft/client/gui/widget/Widget;") )
+	@Inject( method="init", at=@At(value="INVOKE", ordinal=0, target="net/minecraft/client/gui/widget/GridWidget$Adder.add (Lnet/minecraft/client/gui/widget/Widget;)Lnet/minecraft/client/gui/widget/Widget;") )
 	private void gameruleMenu$Init(CallbackInfo info, @Local GridWidget.Adder adder){
 		this.server = this.client.getServer();
 
@@ -60,7 +59,7 @@ extends Screen
 				)
 			));
 
-			var rollback = server.getDataPackManager().getEnabledNames();
+			var rollback = server.getDataPackManager().getEnabledIds();
 			adder.add(createButton(
 				Text.translatable("selectWorld.dataPacks"),
 				() -> new PackScreen(
@@ -119,14 +118,14 @@ extends Screen
 			featureNames += id.toString()+", ";
 		PackRuleMenus.LOGGER.info("Reloading packs with features: {}", featureNames);
 
-		server.getSaveProperties().updateLevelInfo(new DataConfiguration(IMinecraftServerMixin.callCreateDataPackSettings(manager), features));		
+		server.getSaveProperties().updateLevelInfo(new DataConfiguration(IMinecraftServerMixin.callCreateDataPackSettings(manager, true), features));		
 	}
 
 
 	private void	ReloadPacks(final ResourcePackManager manager){
 		client.inGameHud.getChatHud().addMessage(Text.translatable("commands.reload.success"));
 
-		server.reloadResources(manager.getEnabledNames()).exceptionally(e -> {
+		server.reloadResources(manager.getEnabledIds()).exceptionally(e -> {
 			PackRuleMenus.LOGGER.error("{}", e);
 			client.inGameHud.getChatHud().addMessage(Text.translatable("commands.reload.failure").formatted(Formatting.RED));
 			return null;

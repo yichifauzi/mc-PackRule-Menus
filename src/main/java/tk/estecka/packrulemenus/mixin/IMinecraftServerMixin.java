@@ -9,5 +9,5 @@ import net.minecraft.server.MinecraftServer;
 @Mixin(MinecraftServer.class)
 public interface IMinecraftServerMixin 
 {
-	@Invoker static	public DataPackSettings callCreateDataPackSettings(ResourcePackManager manager){ throw new AssertionError(); }
+	@Invoker static	public DataPackSettings callCreateDataPackSettings(ResourcePackManager manager, boolean allowEnabling){ throw new AssertionError(); }
 }

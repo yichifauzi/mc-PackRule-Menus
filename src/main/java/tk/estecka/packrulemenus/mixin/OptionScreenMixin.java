@@ -13,6 +13,7 @@ import net.minecraft.server.integrated.IntegratedServer;
 import tk.estecka.packrulemenus.DatapackHandler;
 import tk.estecka.packrulemenus.GameruleHandler;
 import tk.estecka.packrulemenus.PackRuleMenus;
+import tk.estecka.packrulemenus.config.EButtonLocation;
 
 
 @Unique
@@ -24,7 +25,7 @@ extends Screen
 	
 	@Inject( method="init", at=@At(value="INVOKE", ordinal=0, target="net/minecraft/client/gui/widget/GridWidget$Adder.add (Lnet/minecraft/client/gui/widget/Widget;)Lnet/minecraft/client/gui/widget/Widget;") )
 	private void gameruleMenu$Init(CallbackInfo info, @Local GridWidget.Adder adder){
-		if (PackRuleMenus.CanModifyWorld())
+		if (PackRuleMenus.CanModifyWorld() && PackRuleMenus.BUTTON_LOCATION == EButtonLocation.OPTIONS)
 		{
 			final IntegratedServer server = this.client.getServer();
 			adder.add(new GameruleHandler(this, server).CreateButton());

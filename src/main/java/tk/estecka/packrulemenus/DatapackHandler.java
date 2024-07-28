@@ -13,10 +13,12 @@ import net.minecraft.resource.ResourcePackManager;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.server.integrated.IntegratedServer;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.WorldSavePath;
+import tk.estecka.packrulemenus.gui.GenericWarningScreen;
 import tk.estecka.packrulemenus.mixin.IMinecraftServerMixin;
 
 public class DatapackHandler
@@ -77,11 +79,11 @@ public class DatapackHandler
 				}
 			};
 
-			client.setScreen(GenericWarningScreen.FeatureWarning(isExperimental, confirmed -> {
+			client.setScreen(FeatureWarning(isExperimental, confirmed -> {
 				if (!wasVanillaRemoved || !confirmed)
 					onConfirm.accept(confirmed);
 				else
-					client.setScreen(GenericWarningScreen.VanillaWarning(onConfirm));
+					client.setScreen(VanillaWarning(onConfirm));
 			}));
 		}
 	}
@@ -106,5 +108,27 @@ public class DatapackHandler
 			client.inGameHud.getChatHud().addMessage(Text.translatable("commands.reload.failure").formatted(Formatting.RED));
 			return null;
 		});
+	}
+
+	static public GenericWarningScreen	FeatureWarning(boolean isExperimental, BooleanConsumer onConfirm){
+		MutableText msg = Text.translatable("packrulemenus.featureflag.warning.message");
+		if (isExperimental)
+			msg.append(Text.translatable("selectWorld.experimental.message"));
+
+		return new GenericWarningScreen(
+			Text.translatable("packrulemenus.featureflag.warning.title"),
+			msg,
+			Text.translatable("packrulemenus.featureflag.warning.checkbox"),
+			onConfirm
+		);
+	}
+
+	static public GenericWarningScreen	VanillaWarning(BooleanConsumer onConfirm){
+		return new GenericWarningScreen(
+			Text.translatable("packrulemenus.vanillapack.warning.title"),
+			Text.translatable("packrulemenus.vanillapack.warning.message"),
+			Text.translatable("packrulemenus.vanillapack.warning.checkbox"),
+			onConfirm
+		);
 	}
 }

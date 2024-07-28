@@ -19,3 +19,7 @@
 ### 1.2.2
 - Updated for MC1.20.5.
 - In 1.20.5, the position of the buttons in the option menu has changed slightly.
+
+## 1.3
+- The buttons are now accessible via Mod Menu.
+- Added an option to remove the buttons from the option screen.

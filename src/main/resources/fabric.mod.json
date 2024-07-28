@@ -3,7 +3,7 @@
 	"id": "packrule-menus",
 	"version": "${version}",
 	"name": "Pack/Rule Menus",
-	"description": "Makes the Datapack and Gamerule menus accesssible from singleplayer worlds.",
+	"description": "Makes the Datapacks and Gamerules menus accesssible from singleplayer worlds.",
 	"authors": [
 		"Estecka"
 	],
@@ -15,6 +15,9 @@
 	"icon": "assets/packrule-menus/icon.png",
 	"environment": "*",
 	"entrypoints": {
+		"modmenu": [
+			"tk.estecka.packrulemenus.ModMenu"
+		]
 	},
 	"mixins": [
 		"packrule-menus.mixins.json"

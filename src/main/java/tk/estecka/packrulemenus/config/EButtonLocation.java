@@ -29,8 +29,12 @@ public enum EButtonLocation
 		return this.name;
 	}
 
+	public String TranslationKey() {
+		return "packrule-menus.config.buttonlocation." + this.name;
+	}
+
 	public Text TranslatableName() {
-		return Text.translatable("packrule-menus.config.buttonlocation." + this.name);
+		return Text.translatable(this.TranslationKey());
 	}
 
 }

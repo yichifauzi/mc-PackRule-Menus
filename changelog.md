@@ -23,3 +23,4 @@
 ## 1.3
 - The buttons are now accessible via Mod Menu.
 - Added an option to remove the buttons from the option screen.
+- The buttons are back to their original position by default.

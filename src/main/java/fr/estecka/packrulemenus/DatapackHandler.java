@@ -113,7 +113,7 @@ public class DatapackHandler
 	static public GenericWarningScreen	FeatureWarning(boolean isExperimental, BooleanConsumer onConfirm){
 		MutableText msg = Text.translatable("packrulemenus.featureflag.warning.message");
 		if (isExperimental)
-			msg.append(Text.translatable("selectWorld.experimental.message"));
+			msg.append("\n\n").append(Text.translatable("selectWorld.experimental.message"));
 
 		return new GenericWarningScreen(
 			Text.translatable("packrulemenus.featureflag.warning.title"),

@@ -20,7 +20,8 @@
 - Updated for MC1.20.5.
 - In 1.20.5, the position of the buttons in the option menu has changed slightly.
 
-## 1.3
+
+# v2
 - The menu buttons are back to their original position by default.
 - Added an option to move or remove the menu buttons from the Options screen via ModMenu.
 - The menu buttons are now accessible via Mod Menu.

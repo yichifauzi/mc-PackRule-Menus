@@ -5,7 +5,8 @@ import net.minecraft.text.Text;
 public enum EButtonLocation
 {
 	NONE("none"),
-	OPTIONS("options"),
+	OPTIONS_HEADER("options_header"),
+	OPTIONS_BODY("options_body"),
 	;
 
 	private final String name;

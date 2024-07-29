@@ -15,7 +15,7 @@ public class PackRuleMenus
 	static public final Logger LOGGER = LoggerFactory.getLogger("packrule-menus");
 
 	static public final ConfigIO CONFIG_IO = new ConfigIO("packrule-menus.properties");
-	static public EButtonLocation BUTTON_LOCATION = EButtonLocation.OPTIONS;
+	static public EButtonLocation BUTTON_LOCATION = EButtonLocation.OPTIONS_HEADER;
 
 	static
 	{

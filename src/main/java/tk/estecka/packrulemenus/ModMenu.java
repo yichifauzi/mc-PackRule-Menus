@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.CyclingButtonWidget;
+import net.minecraft.client.gui.widget.DirectionalLayoutWidget;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.text.Text;
 import tk.estecka.packrulemenus.config.ConfigLoader;
@@ -42,20 +43,26 @@ implements ModMenuApi
 			rules.active = false;
 		}
 
-		screen.AddWidget(rules);
-		screen.AddWidget(packs);
+		DirectionalLayoutWidget row = DirectionalLayoutWidget.horizontal().spacing(8);
+		row.add(rules);
+		row.add(packs);
+
 		screen.AddWidget(CreateConfigButton());
+		screen.AddWidget(row);
 
 		return screen;
 	}
 
 	static private CyclingButtonWidget<EButtonLocation> CreateConfigButton(){
-		return CyclingButtonWidget.builder(EButtonLocation::TranslatableName)
+		var button = CyclingButtonWidget.builder(EButtonLocation::TranslatableName)
 			.values(EButtonLocation.values())
 			.initially(PackRuleMenus.BUTTON_LOCATION)
 			.tooltip(ModMenu::GetConfigTooltip)
 			.build(Text.translatable("packrule-menus.config.buttonlocation"), ModMenu::OnButtonChanged)
 			;
+
+		button.setWidth(8 + 2 * button.getWidth());
+		return button;
 	}
 
 	static private Tooltip GetConfigTooltip(EButtonLocation e){

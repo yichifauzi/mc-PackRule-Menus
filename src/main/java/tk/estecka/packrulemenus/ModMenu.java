@@ -30,7 +30,7 @@ implements ModMenuApi
 
 		GenericOptionScreen screen = new GenericOptionScreen(Text.translatable("packrulemenus.gui.main.title"), parent);
 
-		boolean showWorldOptions = PackRuleMenus.CanModifyWorld();
+		boolean showWorldOptions = PackRuleMod.CanModifyWorld();
 		ButtonWidget packs, rules;
 		if (showWorldOptions){
 			packs = new DatapackHandler(screen, server).CreateButton();
@@ -56,7 +56,7 @@ implements ModMenuApi
 	static private CyclingButtonWidget<EButtonLocation> CreateConfigButton(){
 		var button = CyclingButtonWidget.builder(EButtonLocation::TranslatableName)
 			.values(EButtonLocation.values())
-			.initially(PackRuleMenus.BUTTON_LOCATION)
+			.initially(PackRuleMod.BUTTON_LOCATION)
 			.tooltip(ModMenu::GetConfigTooltip)
 			.build(Text.translatable("packrule-menus.config.buttonlocation"), ModMenu::OnButtonChanged)
 			;
@@ -70,12 +70,12 @@ implements ModMenuApi
 	}
 
 	static private void OnButtonChanged(CyclingButtonWidget<?> button, EButtonLocation value){
-		PackRuleMenus.BUTTON_LOCATION = value;
+		PackRuleMod.BUTTON_LOCATION = value;
 		try {
-			PackRuleMenus.CONFIG_IO.Write(new ConfigLoader());
+			PackRuleMod.CONFIG_IO.Write(new ConfigLoader());
 		}
 		catch (IOException e){
-			PackRuleMenus.LOGGER.error(e.getMessage());
+			PackRuleMod.LOGGER.error(e.getMessage());
 		}
 	}
 }

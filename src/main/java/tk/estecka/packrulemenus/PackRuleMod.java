@@ -10,11 +10,12 @@ import tk.estecka.packrulemenus.config.ConfigLoader;
 import tk.estecka.packrulemenus.config.EButtonLocation;
 
 
-public class PackRuleMenus
+public class PackRuleMod
 {
-	static public final Logger LOGGER = LoggerFactory.getLogger("packrule-menus");
+	static public final String MODID = "packrule-menus";
+	static public final Logger LOGGER = LoggerFactory.getLogger(MODID);
 
-	static public final ConfigIO CONFIG_IO = new ConfigIO("packrule-menus.properties");
+	static public final ConfigIO CONFIG_IO = new ConfigIO(MODID+".properties");
 	static public EButtonLocation BUTTON_LOCATION = EButtonLocation.OPTIONS_HEADER;
 
 	static

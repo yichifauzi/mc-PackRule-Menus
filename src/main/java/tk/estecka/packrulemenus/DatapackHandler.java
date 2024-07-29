@@ -94,7 +94,7 @@ public class DatapackHandler
 		String featureNames = "";
 		for (Identifier id : FeatureFlags.FEATURE_MANAGER.toId(features))
 			featureNames += id.toString()+", ";
-		PackRuleMenus.LOGGER.info("Reloading packs with features: {}", featureNames);
+		PackRuleMod.LOGGER.info("Reloading packs with features: {}", featureNames);
 
 		server.getSaveProperties().updateLevelInfo(new DataConfiguration(IMinecraftServerMixin.callCreateDataPackSettings(manager, true), features));		
 	}
@@ -104,7 +104,7 @@ public class DatapackHandler
 		client.inGameHud.getChatHud().addMessage(Text.translatable("commands.reload.success"));
 
 		server.reloadResources(manager.getEnabledIds()).exceptionally(e -> {
-			PackRuleMenus.LOGGER.error("{}", e);
+			PackRuleMod.LOGGER.error("{}", e);
 			client.inGameHud.getChatHud().addMessage(Text.translatable("commands.reload.failure").formatted(Formatting.RED));
 			return null;
 		});

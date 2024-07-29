@@ -14,7 +14,7 @@ import net.minecraft.client.gui.widget.DirectionalLayoutWidget;
 import net.minecraft.client.gui.widget.GridWidget;
 import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
 import net.minecraft.server.integrated.IntegratedServer;
-import tk.estecka.packrulemenus.PackRuleMenus;
+import tk.estecka.packrulemenus.PackRuleMod;
 import tk.estecka.packrulemenus.DatapackHandler;
 import tk.estecka.packrulemenus.GameruleHandler;
 import tk.estecka.packrulemenus.config.EButtonLocation;
@@ -33,10 +33,10 @@ extends Screen
 	private void gameruleMenu$Init(CallbackInfo info, @Local GridWidget.Adder adder, @Local(ordinal=0) DirectionalLayoutWidget header){
 		final IntegratedServer server = this.client.getServer();
 
-		if (!PackRuleMenus.CanModifyWorld())
+		if (!PackRuleMod.CanModifyWorld())
 			return;
 
-		switch (PackRuleMenus.BUTTON_LOCATION)
+		switch (PackRuleMod.BUTTON_LOCATION)
 		{
 			default: return;
 

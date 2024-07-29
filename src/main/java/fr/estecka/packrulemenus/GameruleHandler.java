@@ -1,8 +1,7 @@
-package tk.estecka.packrulemenus;
+package fr.estecka.packrulemenus;
 
 import java.util.Optional;
 import java.util.function.Consumer;
-
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;

@@ -1,4 +1,4 @@
-package tk.estecka.packrulemenus.mixin;
+package fr.estecka.packrulemenus.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;

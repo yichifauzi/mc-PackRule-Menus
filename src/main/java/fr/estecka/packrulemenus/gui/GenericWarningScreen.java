@@ -1,4 +1,4 @@
-package tk.estecka.packrulemenus.gui;
+package fr.estecka.packrulemenus.gui;
 
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
 import net.minecraft.client.gui.DrawContext;

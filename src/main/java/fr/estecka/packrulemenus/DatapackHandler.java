@@ -1,4 +1,4 @@
-package tk.estecka.packrulemenus;
+package fr.estecka.packrulemenus;
 
 import java.util.Collection;
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
@@ -18,8 +18,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.WorldSavePath;
-import tk.estecka.packrulemenus.gui.GenericWarningScreen;
-import tk.estecka.packrulemenus.mixin.IMinecraftServerMixin;
+import fr.estecka.packrulemenus.gui.GenericWarningScreen;
+import fr.estecka.packrulemenus.mixin.IMinecraftServerMixin;
 
 public class DatapackHandler
 {

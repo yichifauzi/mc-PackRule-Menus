@@ -1,4 +1,4 @@
-package tk.estecka.packrulemenus;
+package fr.estecka.packrulemenus;
 
 import java.io.IOException;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
@@ -11,9 +11,9 @@ import net.minecraft.client.gui.widget.CyclingButtonWidget;
 import net.minecraft.client.gui.widget.DirectionalLayoutWidget;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.text.Text;
-import tk.estecka.packrulemenus.config.ConfigLoader;
-import tk.estecka.packrulemenus.config.EButtonLocation;
-import tk.estecka.packrulemenus.gui.GenericOptionScreen;
+import fr.estecka.packrulemenus.config.ConfigLoader;
+import fr.estecka.packrulemenus.config.EButtonLocation;
+import fr.estecka.packrulemenus.gui.GenericOptionScreen;
 
 
 public class ModMenu

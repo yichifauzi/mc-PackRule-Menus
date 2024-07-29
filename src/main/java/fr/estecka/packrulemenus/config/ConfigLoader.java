@@ -1,9 +1,9 @@
-package tk.estecka.packrulemenus.config;
+package fr.estecka.packrulemenus.config;
 
 import java.util.HashMap;
 import java.util.Map;
-import tk.estecka.packrulemenus.PackRuleMod;
-import tk.estecka.packrulemenus.config.ConfigIO.Property;
+import fr.estecka.packrulemenus.PackRuleMod;
+import fr.estecka.packrulemenus.config.ConfigIO.Property;
 
 public class ConfigLoader
 extends ConfigIO.AFixedCoded

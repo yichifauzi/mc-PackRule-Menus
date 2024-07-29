@@ -1,4 +1,4 @@
-package tk.estecka.packrulemenus.gui;
+package fr.estecka.packrulemenus.gui;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;

@@ -16,7 +16,7 @@
 	"environment": "*",
 	"entrypoints": {
 		"modmenu": [
-			"tk.estecka.packrulemenus.ModMenu"
+			"fr.estecka.packrulemenus.ModMenu"
 		]
 	},
 	"mixins": [

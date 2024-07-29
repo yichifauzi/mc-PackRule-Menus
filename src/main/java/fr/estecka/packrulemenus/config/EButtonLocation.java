@@ -1,4 +1,4 @@
-package tk.estecka.packrulemenus.config;
+package fr.estecka.packrulemenus.config;
 
 import net.minecraft.text.Text;
 

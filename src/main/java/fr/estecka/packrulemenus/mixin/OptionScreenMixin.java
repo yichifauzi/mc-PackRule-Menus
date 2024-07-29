@@ -1,4 +1,4 @@
-package tk.estecka.packrulemenus.mixin;
+package fr.estecka.packrulemenus.mixin;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,10 +14,10 @@ import net.minecraft.client.gui.widget.DirectionalLayoutWidget;
 import net.minecraft.client.gui.widget.GridWidget;
 import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
 import net.minecraft.server.integrated.IntegratedServer;
-import tk.estecka.packrulemenus.PackRuleMod;
-import tk.estecka.packrulemenus.DatapackHandler;
-import tk.estecka.packrulemenus.GameruleHandler;
-import tk.estecka.packrulemenus.config.EButtonLocation;
+import fr.estecka.packrulemenus.PackRuleMod;
+import fr.estecka.packrulemenus.DatapackHandler;
+import fr.estecka.packrulemenus.GameruleHandler;
+import fr.estecka.packrulemenus.config.EButtonLocation;
 
 
 @Unique

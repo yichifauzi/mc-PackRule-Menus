@@ -1,13 +1,13 @@
-package tk.estecka.packrulemenus;
+package fr.estecka.packrulemenus;
 
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.server.integrated.IntegratedServer;
-import tk.estecka.packrulemenus.config.ConfigIO;
-import tk.estecka.packrulemenus.config.ConfigLoader;
-import tk.estecka.packrulemenus.config.EButtonLocation;
+import fr.estecka.packrulemenus.config.ConfigIO;
+import fr.estecka.packrulemenus.config.ConfigLoader;
+import fr.estecka.packrulemenus.config.EButtonLocation;
 
 
 public class PackRuleMod

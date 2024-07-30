@@ -111,23 +111,23 @@ public class DatapackHandler
 	}
 
 	static public GenericWarningScreen	FeatureWarning(boolean isExperimental, BooleanConsumer onConfirm){
-		MutableText msg = Text.translatable("packrulemenus.featureflag.warning.message");
+		MutableText msg = Text.translatable("packrulemenus.warning.featureflag.message");
 		if (isExperimental)
 			msg.append("\n\n").append(Text.translatable("selectWorld.experimental.message"));
 
 		return new GenericWarningScreen(
-			Text.translatable("packrulemenus.featureflag.warning.title"),
+			Text.translatable("packrulemenus.warning.featureflag.title"),
 			msg,
-			Text.translatable("packrulemenus.featureflag.warning.checkbox"),
+			Text.translatable("packrulemenus.warning.featureflag.checkbox"),
 			onConfirm
 		);
 	}
 
 	static public GenericWarningScreen	VanillaWarning(BooleanConsumer onConfirm){
 		return new GenericWarningScreen(
-			Text.translatable("packrulemenus.vanillapack.warning.title"),
-			Text.translatable("packrulemenus.vanillapack.warning.message"),
-			Text.translatable("packrulemenus.vanillapack.warning.checkbox"),
+			Text.translatable("packrulemenus.warning.vanillapack.title"),
+			Text.translatable("packrulemenus.warning.vanillapack.message"),
+			Text.translatable("packrulemenus.warning.vanillapack.checkbox"),
 			onConfirm
 		);
 	}

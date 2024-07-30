@@ -58,7 +58,7 @@ implements ModMenuApi
 			.values(EButtonLocation.values())
 			.initially(PackRuleMod.BUTTON_LOCATION)
 			.tooltip(ModMenu::GetConfigTooltip)
-			.build(Text.translatable("packrule-menus.config.buttonlocation"), ModMenu::OnButtonChanged)
+			.build(Text.translatable("packrulemenus.config.buttonlocation"), ModMenu::OnButtonChanged)
 			;
 
 		button.setWidth(8 + 2 * button.getWidth());

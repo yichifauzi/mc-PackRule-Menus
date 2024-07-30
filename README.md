@@ -19,7 +19,7 @@ The new type of packs introduced in MC 1.21. Packs that add data to registries 
 
 Toggling these packs may cause some errors in the log, but those are benign so long as you restart the world immediately afterward. This behaviour is no different from using the `/datapack` command.
 
-### Experimental Feature
+### Experimental Features
 Packs that include experimental features (such as bundles) are properly detected by the mod. Toggling them will also toggle the corresponding feature-flag on the world, and exit the world gracefully.
 
 ### Vanilla Datapack

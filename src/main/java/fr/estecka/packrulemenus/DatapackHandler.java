@@ -1,80 +1,58 @@
-package tk.estecka.packrulemenus.mixin;
+package fr.estecka.packrulemenus;
 
 import java.util.Collection;
-import java.util.function.Supplier;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import com.llamalad7.mixinextras.sugar.Local;
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.MessageScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.pack.PackScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.GridWidget;
 import net.minecraft.resource.DataConfiguration;
 import net.minecraft.resource.ResourcePackManager;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.server.integrated.IntegratedServer;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.WorldSavePath;
-import net.minecraft.world.GameRules;
-import tk.estecka.packrulemenus.GenericWarningScreen;
-import tk.estecka.packrulemenus.PackRuleMenus;
+import fr.estecka.packrulemenus.gui.GenericWarningScreen;
+import fr.estecka.packrulemenus.mixin.IMinecraftServerMixin;
 
-@Unique
-@Mixin(OptionsScreen.class)
-abstract public class OptionScreenMixin 
-extends Screen
+public class DatapackHandler
 {
-	private OptionScreenMixin(){ super(null); }
+	private final Screen parent;
+	private final IntegratedServer server;
+	private final MinecraftClient client = MinecraftClient.getInstance();
 
-	@Shadow abstract ButtonWidget	createButton(Text message, Supplier<Screen> screenSupplier);
-
-	private IntegratedServer server;
-
-	@Inject( method="init", at=@At(value="INVOKE", ordinal=0, target="net/minecraft/client/gui/widget/GridWidget$Adder.add (Lnet/minecraft/client/gui/widget/Widget;)Lnet/minecraft/client/gui/widget/Widget;") )
-	private void gameruleMenu$Init(CallbackInfo info, @Local GridWidget.Adder adder){
-		this.server = this.client.getServer();
-
-		if (client.isIntegratedServerRunning() 
-		&& server.getSaveProperties().areCommandsAllowed()
-		&& server.getOverworld() != null)
-		{
-			final GameRules worldRules = server.getOverworld().getGameRules();
-			adder.add(createButton(
-				Text.translatable("selectWorld.gameRules"),
-				() -> PackRuleMenus.CreateGameruleScreen(
-					this,
-					worldRules.copy(),
-					optRules -> optRules.ifPresent(r -> worldRules.setAllValues(r, server))
-				)
-			));
-
-			var rollback = server.getDataPackManager().getEnabledIds();
-			adder.add(createButton(
-				Text.translatable("selectWorld.dataPacks"),
-				() -> new PackScreen(
-					server.getDataPackManager(),
-					manager -> { HandleDatapackRefresh(manager, rollback); },
-					server.getSavePath(WorldSavePath.DATAPACKS),
-					Text.translatable("dataPack.title")
-				)
-			));
-		}
+	public DatapackHandler(Screen parent, IntegratedServer server){
+		this.parent = parent;
+		this.server = server;
 	}
 
 	private void	RevertScreen(){
-		client.setScreen((OptionsScreen)(Object)this);
+		client.setScreen(parent);
 	};
+
+	public ButtonWidget CreateButton(){
+		return ButtonWidget.builder(
+				Text.translatable("selectWorld.dataPacks"),
+				__->client.setScreen( CreateScreen() )
+			).build();
+	}
+
+	public PackScreen CreateScreen(){
+		Collection<String> rollback = server.getDataPackManager().getEnabledIds();
+
+		return new PackScreen(
+			server.getDataPackManager(),
+			manager -> { HandleDatapackRefresh(manager, rollback); },
+			server.getSavePath(WorldSavePath.DATAPACKS),
+			Text.translatable("dataPack.title")
+		);
+	}
 
 	private void	HandleDatapackRefresh(final ResourcePackManager manager, Collection<String> rollback){
 		FeatureSet neoFeatures = manager.getRequestedFeatures();
@@ -101,11 +79,11 @@ extends Screen
 				}
 			};
 
-			client.setScreen(GenericWarningScreen.FeatureWarning(isExperimental, confirmed -> {
+			client.setScreen(FeatureWarning(isExperimental, confirmed -> {
 				if (!wasVanillaRemoved || !confirmed)
 					onConfirm.accept(confirmed);
 				else
-					client.setScreen(GenericWarningScreen.VanillaWarning(onConfirm));
+					client.setScreen(VanillaWarning(onConfirm));
 			}));
 		}
 	}
@@ -116,7 +94,7 @@ extends Screen
 		String featureNames = "";
 		for (Identifier id : FeatureFlags.FEATURE_MANAGER.toId(features))
 			featureNames += id.toString()+", ";
-		PackRuleMenus.LOGGER.info("Reloading packs with features: {}", featureNames);
+		PackRuleMod.LOGGER.info("Reloading packs with features: {}", featureNames);
 
 		server.getSaveProperties().updateLevelInfo(new DataConfiguration(IMinecraftServerMixin.callCreateDataPackSettings(manager, true), features));		
 	}
@@ -126,10 +104,31 @@ extends Screen
 		client.inGameHud.getChatHud().addMessage(Text.translatable("commands.reload.success"));
 
 		server.reloadResources(manager.getEnabledIds()).exceptionally(e -> {
-			PackRuleMenus.LOGGER.error("{}", e);
+			PackRuleMod.LOGGER.error("{}", e);
 			client.inGameHud.getChatHud().addMessage(Text.translatable("commands.reload.failure").formatted(Formatting.RED));
 			return null;
 		});
 	}
 
+	static public GenericWarningScreen	FeatureWarning(boolean isExperimental, BooleanConsumer onConfirm){
+		MutableText msg = Text.translatable("packrulemenus.warning.featureflag.message");
+		if (isExperimental)
+			msg.append("\n\n").append(Text.translatable("selectWorld.experimental.message"));
+
+		return new GenericWarningScreen(
+			Text.translatable("packrulemenus.warning.featureflag.title"),
+			msg,
+			Text.translatable("packrulemenus.warning.featureflag.checkbox"),
+			onConfirm
+		);
+	}
+
+	static public GenericWarningScreen	VanillaWarning(BooleanConsumer onConfirm){
+		return new GenericWarningScreen(
+			Text.translatable("packrulemenus.warning.vanillapack.title"),
+			Text.translatable("packrulemenus.warning.vanillapack.message"),
+			Text.translatable("packrulemenus.warning.vanillapack.checkbox"),
+			onConfirm
+		);
+	}
 }

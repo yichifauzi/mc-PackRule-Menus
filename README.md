@@ -1,19 +1,30 @@
 # Data-Pack / Game-Rule Menus
 
-Makes the titular menus accessible from the pause menu in singleplayer worlds.
+Takes the titular menus from the World-Creation menu, and makes them available from already created singleplayer worlds.
+This provides a more user-friendly alternative to the vanilla `/gamerule` and `/datapack` commands.
+
+Like those commands, the menus will only be accessible in worlds with cheats/commands enabled.
+
+Unlike the vanilla `/datapack` command, the Datapack menu from this mod can be used to toggle experimental features!
 
 
 ## Word of caution: Datapacks
 
-Minecraft's own built-in datapacks are not "just" datapacks, and require special handling. A warning screen will be shown whenever you attempt to toggle any of these, and give you the option to back out. 
+Some types of datapacks require a world restart to fully take effect.
+Whenever possible, the mod will show a warning after toggling one of them, and offer you the option to either back-out, or exit the world gracefully.
+However, some type of packs cannot be detected, and no warning will be displayed for those.
 
-### Experimental Feature
-When packs that include experimental features (such as bundles) are toggled, the approriate feature flag will be toggled on the world.
+### Registry Packs
+The new type of packs introduced in MC 1.21. Packs that add data to registries (painting variants, etc), **are not detected by the mod**, but still require a world restart to fully take effects.
 
-However, **unlike regular datapacks, those won't fully take effect until the world is restarted.** After you confirm the changes, the world will immediately exit.
+Toggling these packs may cause some errors in the log, but those are benign so long as you restart the world immediately afterward. This behaviour is no different from using the `/datapack` command.
+
+### Experimental Features
+Packs that include experimental features (such as bundles) are properly detected by the mod. Toggling them will also toggle the corresponding feature-flag on the world, and exit the world gracefully.
 
 ### Vanilla Datapack
-The Vanilla datapack can technically be disabled, but the uses cases for this are very marginal. Doing so will break worlds most of the times, so you probably don't want to do it.
+The Vanilla datapack can technically be disabled, but you probably don't want to do it.
+Doing so will usually break worlds unless you know exactly what you are doing.
 An additional warning screen will appear when trying to disable this pack.
 
 If you can't load a world after having disabled the Vanilla datapack, loading it in Safe Mode should be able to restore it.

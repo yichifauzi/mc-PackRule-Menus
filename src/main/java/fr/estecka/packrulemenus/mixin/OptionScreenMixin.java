@@ -28,9 +28,9 @@ extends Screen
 	@Shadow private @Final ThreePartsLayoutWidget layout;
 
 	private OptionScreenMixin(){ super(null); }
-	
+
 	@Inject( method="init", at=@At(value="INVOKE", ordinal=0, target="net/minecraft/client/gui/widget/GridWidget$Adder.add (Lnet/minecraft/client/gui/widget/Widget;)Lnet/minecraft/client/gui/widget/Widget;") )
-	private void gameruleMenu$Init(CallbackInfo info, @Local GridWidget.Adder adder, @Local(ordinal=0) DirectionalLayoutWidget header){
+	private void gameruleMenu$Init(CallbackInfo info, @Local GridWidget.Adder body, @Local(ordinal=0) DirectionalLayoutWidget header){
 		final IntegratedServer server = this.client.getServer();
 
 		if (!PackRuleMod.CanModifyWorld())
@@ -41,8 +41,8 @@ extends Screen
 			default: return;
 
 			case EButtonLocation.OPTIONS_BODY: {
-				adder.add(new GameruleHandler(this, server).CreateButton());
-				adder.add(new DatapackHandler(this, server).CreateButton());
+				body.add(new GameruleHandler(this, server).CreateButton());
+				body.add(new DatapackHandler(this, server).CreateButton());
 				break;
 			}
 
@@ -50,7 +50,7 @@ extends Screen
 				DirectionalLayoutWidget subHeader = DirectionalLayoutWidget.horizontal().spacing(8);
 				subHeader.add(new GameruleHandler(this, server).CreateButton());
 				subHeader.add(new DatapackHandler(this, server).CreateButton());
-	
+
 				header.add(subHeader);
 				header.spacing(4);
 				this.layout.setHeaderHeight(layout.getHeaderHeight() + 28);
